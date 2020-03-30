@@ -18,22 +18,24 @@ const Book = ({ title, author, pages }) => {
 	)
 }
 
-// es6 classes
 class Library extends React.Component {
-	// this is what allows us to keep a state
-	constructor(props) {
-		super(props)
-		this.state = {
-			open: true
-		}
+	// make this as static var
+	// allows us to get rid of ctor
+	state = { open: false }
+
+	// arrow funcs alwasy bind this
+	toggleOpenClosed = () => {
+		this.setState(prevState => ({
+			open: !prevState.open
+		}))
 	}
 	render() {
-		//  always destructure
 		const { books } = this.props
 		return (
 			<div>
-				{/* conditional rendering... */}
 				<h1>The library is {this.state.open ? 'open' : 'closed'}</h1>
+				{/* connection to sate */}
+				<button onClick={this.toggleOpenClosed}>Change</button>
 				{books.map(
 					(book, i) =>
 						<Book
