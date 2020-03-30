@@ -1,6 +1,5 @@
 import React from 'react'
 
-// need the EXPORT tag to import elsewhere
 export const Book = ({ title = "No Title Provided", author = "No Author", pages = 0, freeBookmark }) => {
 	return (
 		<section>
