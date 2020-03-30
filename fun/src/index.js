@@ -19,7 +19,6 @@ const Book = ({ title, author, pages, freeBookmark }) => {
   )
 }
 
-// :s
 const Hiring = () =>
   <div>
     <p>The library is hiring. Go to www.library.com/jobs for more.</p>
@@ -38,6 +37,16 @@ class Library extends React.Component {
     hiring: true
   }
 
+  // common lifecycle methods
+  // see in action using console
+  componentDidMount() {
+    console.log("The component is now mounted!")
+  }
+
+  componentDidUpdate() {
+    console.log("The component just updated")
+  }
+
   toggleOpenClosed = () => {
     this.setState(prevState => ({
       open: !prevState.open
@@ -47,7 +56,6 @@ class Library extends React.Component {
     const { books } = this.props
     return (
       <div>
-        {/* using objs as tags, this is kind of ugly */}
         {this.state.hiring ? <Hiring /> : <NotHiring />}
         <h1>The library is {this.state.open ? 'open' : 'closed'}</h1>
         <button onClick={this.toggleOpenClosed}>Change</button>
@@ -64,7 +72,6 @@ class Library extends React.Component {
     )
   }
 }
-
 
 
 render(
