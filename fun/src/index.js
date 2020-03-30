@@ -1,5 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
+import PropTypes from 'prop-types' // seperate package
+
+// when trying to debug just set obj to empty
+let bookList = [
+	{ "title": "Hunger", "author": "Roxane Gay", "pages": 320 },
+	{ "title": "The Sun Also Rises", "author": "Ernest Hemingway", "pages": 260 },
+	{ "title": "White Teeth", "author": "Zadie Smith", "pages": 480 },
+	{ "title": "Cat's Cradle", "author": "Kurt Vonnegut", "pages": 304 }
+]
 
 const Book = ({ title = "No Title Provided", author = "No Author", pages = 0, freeBookmark }) => {
 	return (
@@ -24,7 +33,6 @@ const NotHiring = () =>
 
 class Library extends React.Component {
 
-	//this static props has default
 	static defaultProps = {
 		books: [
 			{ "title": "Tahoe Tales", "author": "Chet Whitley", "pages": 1000 }
@@ -91,8 +99,21 @@ class Library extends React.Component {
 	}
 }
 
+// defining the types
+// Need the package for that
+// adds a bit of safety thats alright
+Library.propTypes = {
+	books: PropTypes.array
+}
+
+Book.propTypes = {
+	title: PropTypes.string,
+	author: PropTypes.string,
+	pages: PropTypes.number,
+	freeBookmark: PropTypes.bool
+}
+
 render(
-	// pass in props as defaults
-	<Library />,
+	<Library books={bookList} />,
 	document.getElementById('root')
 )
