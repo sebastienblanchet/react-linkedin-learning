@@ -34,13 +34,19 @@ class Library extends React.Component {
   state = {
     open: true,
     freeBookmark: false,
-    hiring: true
+    hiring: true,
+    data: [],
+    loading: false
   }
 
-  // common lifecycle methods
-  // see in action using console
   componentDidMount() {
-    console.log("The component is now mounted!")
+    // this is usually where youg et the init fetch
+    // common
+    // fetch as get
+    this.setState({ loading: true })
+    fetch('https://hplussport.com/api/products/order/price/sort/asc/qty/5')
+      .then(data => data.json())
+      .then(data => this.setState({ data, loading: false }))
   }
 
   componentDidUpdate() {
@@ -57,6 +63,24 @@ class Library extends React.Component {
     return (
       <div>
         {this.state.hiring ? <Hiring /> : <NotHiring />}
+        {/* cond formatting based on fetch */}
+        {this.state.loading
+          ? "loading..."
+          : <div>
+            {/* use the .map run this create fxn for each product */}
+            {/* react is gonna bitch that it needs a key use that later */}
+            {this.state.data.map(product => {
+              return (
+                <div>
+                  <h3>Library Product of the Week!</h3>
+                  <h4>{product.name}</h4>
+                  <img src={product.image} height={100} />
+                </div>
+              )
+            })}
+
+          </div>
+        }
         <h1>The library is {this.state.open ? 'open' : 'closed'}</h1>
         <button onClick={this.toggleOpenClosed}>Change</button>
         {books.map(
@@ -72,6 +96,7 @@ class Library extends React.Component {
     )
   }
 }
+
 
 
 render(
